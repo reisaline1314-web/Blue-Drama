@@ -787,12 +787,17 @@ footer strong { color:var(--blue); }
 
 <script>
   function showDemo(title) {
-    alert(
-      title +
-      "\n\nEsta é uma história de demonstração. " +
-      "Os detalhes e a compra serão configurados depois."
-    );
-  }
+  const store = document.getElementById("storeView");
+  const purchases = document.getElementById("purchasesView");
+
+  store.style.display = "none";
+  purchases.style.display = "none";
+
+  document.getElementById("detailsView").style.display = "block";
+  document.getElementById("detailTitle").textContent = title;
+
+  window.scrollTo(0, 0);
+}
 
   // Abre a tela separada de compras.
   function showPurchases() {
@@ -858,6 +863,44 @@ footer strong { color:var(--blue); }
     });
   });
 </script>
+
+<!-- TELA DE DETALHES DA SÉRIE -->
+<div id="detailsView" style="display:none; max-width:1100px; margin:0 auto; padding:35px 20px; color:white;">
+
+  <button onclick="document.getElementById('detailsView').style.display='none'; document.getElementById('storeView').style.display='block'; window.scrollTo(0,0);"
+    style="background:#252b48; color:white; border:0; padding:12px 20px; border-radius:10px; cursor:pointer; margin-bottom:30px;">
+    ← Voltar ao catálogo
+  </button>
+
+  <div style="display:flex; flex-wrap:wrap; gap:30px; align-items:center;">
+
+    <div style="width:100%; max-width:300px; height:400px; border-radius:18px; background:linear-gradient(145deg,#242b65,#7543a5); display:flex; align-items:center; justify-content:center; text-align:center;">
+      <span style="font-size:65px;">🎬</span>
+    </div>
+
+    <div style="flex:1; min-width:250px;">
+      <span style="color:#a99aff; letter-spacing:2px; font-size:13px;">REPLAY ORIGINAL</span>
+
+      <h1 id="detailTitle" style="font-size:36px; margin:15px 0;"></h1>
+
+      <p style="color:#b9b9d0;">Novela curta • Romance • Drama</p>
+
+      <h3 style="margin-top:30px;">Sobre essa história</h3>
+
+      <p style="color:#d0d0df; line-height:1.8;">
+        Prepare-se para uma história cheia de emoções, reviravoltas e personagens inesquecíveis.
+        Descubra todos os detalhes dessa trama e encontre sua próxima série favorita!
+      </p>
+
+      <button onclick="alert('A opção de compra será disponibilizada em breve!')"
+        style="background:linear-gradient(90deg,#5965e8,#8b55d9); color:white; border:0; padding:15px 28px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:20px;">
+        QUERO ASSISTIR
+      </button>
+    </div>
+
+  </div>
+</div>
+<!-- FIM DA TELA DE DETALHES -->
 
 </body>
 </html>
