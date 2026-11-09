@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blue Drama</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #091426;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  padding-bottom: 85px;
+}
+
+header {
+  padding: 24px 18px;
+  background: #102440;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #8ccaff;
+}
+
+.subtitle {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #9bb6d5;
+  margin-top: 5px;
+}
+
+main { padding: 18px; }
+
+.hero {
+  padding: 25px 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg,#194778,#10213c);
+  margin-bottom: 25px;
+}
+
+.hero h1 { font-size: 24px; margin: 0 0 8px; }
+.hero p { color: #c6d8ec; font-size: 13px; }
+
+input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #294665;
+  background: #142944;
+  color: white;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+h2 { font-size: 18px; }
+
+.categories {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.category {
+  border: 1px solid #345474;
+  background: #142944;
+  color: white;
+  border-radius: 20px;
+  padding: 9px 14px;
+  white-space: nowrap;
+}
+
+.category.active {
+  background: #2676bb;
+  border-color: #2676bb;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 15px;
+}
+
+.poster {
+  height: 205px;
+  border-radius: 12px;
+  background: var(--poster);
+  display: flex;
+  align-items: end;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 17px;
+  text-shadow: 0 2px 5px #000;
+  background-size: cover;
+}
+
+.card p {
+  font-size: 12px;
+  color: #9eb5d1;
+}
+
+button { cursor: pointer; }
+
+.details {
+  width: 100%;
+  padding: 11px;
+  border: 0;
+  border-radius: 8px;
+  background: #2676bb;
+  color: white;
+  font-weight: bold;
+}
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #102440;
+  display: flex;
+  justify-content: space-around;
+  padding: 14px 4px;
+  border-top: 1px solid #294665;
+}
+
+.bottom button {
+  border: 0;
+  background: transparent;
+  color: #a9bfd9;
+  font-size: 11px;
+}
+
+.bottom button.active { color: #80c5ff; }
+
+.panel {
+  background: #142944;
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 15px;
+}
+
+.hidden { display: none; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">BLUE DRAMA</div>
+  <div class="subtitle">SUA PRÓXIMA HISTÓRIA COMEÇA AQUI</div>
+</header>
+
+<main>
+  <section id="home">
+    <div class="hero">
+      <h1>Descubra sua próxima obsessão 💙</h1>
+      <p>Romances, dramas e histórias que vão prender você!</p>
+    </div>
+
+    <input id="search" placeholder="🔎 Pesquisar novelinhas...">
+
+    <h2>🔥 Em destaque</h2>
+    <div class="grid" id="catalog"></div>
+  </section>
+
+  <section id="vip" class="hidden">
+    <div class="panel">
+      <h1>👑 Seja VIP</h1>
+      <p>Prepare-se para uma experiência exclusiva na Blue Drama.</p>
+      <p>Em breve: planos, benefícios e acesso especial.</p>
+    </div>
+  </section>
+
+  <section id="purchases" class="hidden">
+    <div class="panel">
+      <h2>🛍️ Minhas compras</h2>
+      <p>Suas compras aparecerão aqui após a integração do sistema.</p>
+    </div>
+  </section>
+
+  <section id="support" class="hidden">
+    <div class="panel">
+      <h2>💬 Suporte</h2>
+      <p>Precisa de ajuda? Nosso atendimento estará disponível aqui.</p>
+      <p>Em breve vamos configurar o contato oficial.</p>
+    </div>
+  </section>
+</main>
+
+<nav class="bottom">
+  <button class="active" data-view="home">⌂<br>Início</button>
+  <button data-view="home">▦<br>Catálogo</button>
+  <button data-view="vip">♛<br>Seja VIP</button>
+  <button data-view="purchases">♡<br>Compras</button>
+  <button data-view="support">✉<br>Suporte</button>
+</nav>
+
+<script>
+const tg = window.Telegram?.WebApp;
+if (tg) {
+  tg.ready();
+  tg.expand();
+}
+
+const stories = [
+  {name:"Amor Proibido", genre:"Romance", color:"linear-gradient(145deg,#9b496f,#27162f)", description:"Uma história de amor cheia de segredos."},
+  {name:"A Herdeira", genre:"Drama", color:"linear-gradient(145deg,#526c9d,#18243c)", description:"Uma mulher precisa recuperar tudo que perdeu."},
+  {name:"Vingança Perfeita", genre:"Vingança", color:"linear-gradient(145deg,#9b493d,#28171c)", description:"Uma promessa de justiça muda tudo."},
+  {name:"Meu Chefe", genre:"Romance", color:"linear-gradient(145deg,#637b9f,#192b42)", description:"Um romance inesperado no trabalho."}
+];
+
+const catalog = document.getElementById("catalog");
+
+function renderStories(search="") {
+  catalog.innerHTML = "";
+  const filtered = stories.filter(s =>
+    (s.name + " " + s.genre).toLowerCase().includes(search.toLowerCase())
+  );
+
+  filtered.forEach(s => {
+    const card = document.createElement("div");
+    card.className = "card";
+    const poster = document.createElement("div");
+    poster.className = "poster";
+    poster.style.setProperty("--poster",s.color);
+    poster.textContent = s.name;
+
+    const genre = document.createElement("p");
+    genre.textContent = s.genre;
+
+    const button = document.createElement("button");
+    button.className = "details";
+    button.textContent = "Ver detalhes";
+    button.onclick = () => alert(
+      s.name + "\n\n" + s.description +
+      "\n\nCompra e acesso serão habilitados na próxima etapa."
+    );
+
+    card.append(poster,genre,button);
+    catalog.appendChild(card);
+  });
+
+  if (!filtered.length) {
+    catalog.textContent = "Nenhuma novelinha encontrada.";
+  }
+}
+
+renderStories();
+
+document.getElementById("search").addEventListener("input",e => {
+  renderStories(e.target.value);
+});
+
+document.querySelectorAll("[data-view]").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll("main section").forEach(s => s.classList.add("hidden"));
+    document.getElementById(button.dataset.view).classList.remove("hidden");
+    document.querySelectorAll("[data-view]").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+  });
+});
+</script>
+
+</body>
+</html>
