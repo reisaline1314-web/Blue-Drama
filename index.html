@@ -4,270 +4,414 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blue Drama</title>
-
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
+<title>RePlay | Sua próxima história começa aqui</title>
 <style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  background: #091426;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  padding-bottom: 85px;
+:root {
+  --bg:#080f20;
+  --panel:#101c35;
+  --panel2:#162746;
+  --blue:#3978e8;
+  --light:#8db9ff;
+  --white:#f5f8ff;
+  --muted:#9baac5;
+  --border:rgba(255,255,255,.09);
 }
-
-header {
-  padding: 24px 18px;
-  background: #102440;
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--white);
+  font-family:Arial,Helvetica,sans-serif;
 }
-
-.logo {
-  font-size: 25px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  color: #8ccaff;
+button,input{font:inherit}
+button{cursor:pointer}
+header{
+  position:sticky;top:0;z-index:5;
+  background:rgba(8,15,32,.96);
+  border-bottom:1px solid var(--border);
+  padding:16px 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;
 }
-
-.subtitle {
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: #9bb6d5;
-  margin-top: 5px;
+.logo{font-size:25px;font-weight:900;letter-spacing:1px}
+.logo span{color:var(--light)}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav button,.mobile-nav button{
+  border:0;background:transparent;color:var(--muted);
+  padding:10px 12px;border-radius:9px;
 }
-
-main { padding: 18px; }
-
-.hero {
-  padding: 25px 20px;
-  border-radius: 16px;
-  background: linear-gradient(135deg,#194778,#10213c);
-  margin-bottom: 25px;
+nav button.active,nav button:hover,
+.mobile-nav button.active{background:var(--panel2);color:white}
+main{max-width:1180px;margin:auto;padding:30px 5% 100px}
+.page{display:none}
+.page.active{display:block}
+.hero{
+  min-height:280px;padding:38px;border-radius:20px;
+  background:linear-gradient(110deg,#142c58,#1d4e9b 60%,#172b54);
+  display:flex;align-items:center;overflow:hidden;
+  position:relative;margin-bottom:35px;
 }
-
-.hero h1 { font-size: 24px; margin: 0 0 8px; }
-.hero p { color: #c6d8ec; font-size: 13px; }
-
-input {
-  width: 100%;
-  padding: 15px;
-  border-radius: 10px;
-  border: 1px solid #294665;
-  background: #142944;
-  color: white;
-  font-size: 14px;
-  margin-bottom: 20px;
+.hero:after{
+  content:"";position:absolute;width:260px;height:260px;
+  right:5%;top:10px;border-radius:50%;
+  background:radial-gradient(circle,rgba(141,185,255,.3),transparent 70%);
 }
-
-h2 { font-size: 18px; }
-
-.categories {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  margin-bottom: 20px;
+.hero-content{position:relative;z-index:1;max-width:570px}
+.eyebrow{color:#b8d3ff;text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:bold}
+h1{font-size:clamp(30px,5vw,48px);margin:12px 0}
+.hero p{color:#d5e3ff;line-height:1.6;max-width:470px}
+.primary,.secondary{
+  border:0;border-radius:10px;padding:12px 18px;font-weight:bold;
 }
-
-.category {
-  border: 1px solid #345474;
-  background: #142944;
-  color: white;
-  border-radius: 20px;
-  padding: 9px 14px;
-  white-space: nowrap;
+.primary{background:var(--blue);color:white}
+.secondary{background:var(--panel2);color:white;border:1px solid var(--border)}
+.section-head{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:15px;margin:30px 0 16px;flex-wrap:wrap
 }
-
-.category.active {
-  background: #2676bb;
-  border-color: #2676bb;
+h2{font-size:22px;margin:0}
+.muted{color:var(--muted);font-size:14px}
+.search{
+  width:100%;max-width:430px;background:var(--panel);
+  color:white;border:1px solid var(--border);
+  border-radius:10px;padding:13px 15px;outline:none;
 }
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: 15px;
+.search:focus{border-color:var(--light)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0 20px}
+.filter{
+  padding:8px 13px;border-radius:30px;
+  border:1px solid var(--border);background:var(--panel);
+  color:var(--muted)
 }
-
-.poster {
-  height: 205px;
-  border-radius: 12px;
-  background: var(--poster);
-  display: flex;
-  align-items: end;
-  padding: 12px;
-  font-weight: bold;
-  font-size: 17px;
-  text-shadow: 0 2px 5px #000;
-  background-size: cover;
+.filter.active{background:var(--blue);color:white;border-color:var(--blue)}
+.catalog{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;
 }
-
-.card p {
-  font-size: 12px;
-  color: #9eb5d1;
+.drama-card{min-width:0;cursor:pointer}
+.poster{
+  aspect-ratio:3/4;border-radius:13px;
+  display:flex;align-items:end;padding:15px;
+  overflow:hidden;position:relative;
+  background:linear-gradient(145deg,#315a91,#111b36 70%);
+  border:1px solid var(--border);
+  transition:transform .2s;
 }
-
-button { cursor: pointer; }
-
-.details {
-  width: 100%;
-  padding: 11px;
-  border: 0;
-  border-radius: 8px;
-  background: #2676bb;
-  color: white;
-  font-weight: bold;
+.poster:before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(transparent 25%,rgba(0,0,0,.8));
 }
-
-.bottom {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #102440;
-  display: flex;
-  justify-content: space-around;
-  padding: 14px 4px;
-  border-top: 1px solid #294665;
+.drama-card:hover .poster{transform:translateY(-4px)}
+.poster-title{position:relative;font-weight:900;font-size:19px}
+.poster.p2{background:linear-gradient(145deg,#9b5368,#25203d 75%)}
+.poster.p3{background:linear-gradient(145deg,#9a7143,#24213b 75%)}
+.poster.p4{background:linear-gradient(145deg,#416c73,#17233c 75%)}
+.poster.p5{background:linear-gradient(145deg,#684f9c,#1b2140 75%)}
+.poster.p6{background:linear-gradient(145deg,#9b5941,#24203b 75%)}
+.card-info{padding:11px 2px}
+.card-info strong{display:block;margin-bottom:5px}
+.card-info small{color:var(--muted)}
+.empty{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:16px;padding:35px;text-align:center;
+  color:var(--muted);line-height:1.7
 }
-
-.bottom button {
-  border: 0;
-  background: transparent;
-  color: #a9bfd9;
-  font-size: 11px;
+.detail-layout{
+  display:grid;grid-template-columns:260px 1fr;gap:30px;
+  align-items:start;margin-top:20px
 }
-
-.bottom button.active { color: #80c5ff; }
-
-.panel {
-  background: #142944;
-  border-radius: 14px;
-  padding: 20px;
-  margin-top: 15px;
+.detail-poster{min-height:340px;border-radius:16px;padding:20px;
+  display:flex;align-items:end;font-size:27px;font-weight:bold;
+  background:linear-gradient(145deg,#315a91,#111b36)}
+.detail-copy p{line-height:1.8;color:var(--muted)}
+.tag{display:inline-block;background:var(--panel2);padding:7px 10px;
+  border-radius:20px;font-size:12px;color:#c8dcff;margin:5px 5px 5px 0}
+.panel{
+  background:var(--panel);border:1px solid var(--border);
+  padding:25px;border-radius:16px;margin-top:20px
 }
-
-.hidden { display: none; }
+.panel h3{margin-top:0}
+footer{text-align:center;color:var(--muted);padding:25px;border-top:1px solid var(--border);font-size:12px}
+.mobile-nav{display:none}
+@media(max-width:760px){
+  header{padding:14px 5%}
+  nav{display:none}
+  main{padding-top:20px}
+  .hero{padding:25px;min-height:260px}
+  .catalog{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+  .detail-layout{grid-template-columns:1fr}
+  .detail-poster{min-height:250px}
+  .mobile-nav{
+    display:flex;position:fixed;bottom:0;left:0;right:0;z-index:10;
+    background:#101c35;border-top:1px solid var(--border);
+    justify-content:space-around;padding:8px 2px;
+  }
+  .mobile-nav button{font-size:11px;padding:8px 5px}
+}
 </style>
 </head>
-
 <body>
 
 <header>
-  <div class="logo">BLUE DRAMA</div>
-  <div class="subtitle">SUA PRÓXIMA HISTÓRIA COMEÇA AQUI</div>
+  <div class="logo">Re<span>Play</span></div>
+  <nav>
+    <button class="active" data-page="home">Início</button>
+    <button data-page="catalog">Catálogo</button>
+    <button data-page="purchases">Minhas compras</button>
+    <button data-page="vip">Seja VIP</button>
+    <button data-page="support">Suporte</button>
+  </nav>
 </header>
 
 <main>
-  <section id="home">
+  <section class="page active" id="home">
     <div class="hero">
-      <h1>Descubra sua próxima obsessão 💙</h1>
-      <p>Romances, dramas e histórias que vão prender você!</p>
+      <div class="hero-content">
+        <div class="eyebrow">Bem-vinda à RePlay</div>
+        <h1>Sua próxima história começa aqui.</h1>
+        <p>Romances intensos, reviravoltas surpreendentes e histórias que prendem você do primeiro ao último episódio.</p>
+        <button class="primary" onclick="showPage('catalog')">Explorar novelinhas</button>
+      </div>
     </div>
 
-    <input id="search" placeholder="🔎 Pesquisar novelinhas...">
-
-    <h2>🔥 Em destaque</h2>
-    <div class="grid" id="catalog"></div>
+    <div class="section-head">
+      <div>
+        <h2>Em destaque</h2>
+        <span class="muted">Histórias para maratonar</span>
+      </div>
+      <button class="secondary" onclick="showPage('catalog')">Ver catálogo</button>
+    </div>
+    <div class="catalog" id="featured"></div>
   </section>
 
-  <section id="vip" class="hidden">
-    <div class="panel">
-      <h1>👑 Seja VIP</h1>
-      <p>Prepare-se para uma experiência exclusiva na Blue Drama.</p>
-      <p>Em breve: planos, benefícios e acesso especial.</p>
+  <section class="page" id="catalog">
+    <div class="section-head">
+      <div>
+        <h2>Nosso catálogo</h2>
+        <p class="muted">Encontre sua próxima história favorita.</p>
+      </div>
+    </div>
+    <input class="search" id="search" placeholder="Buscar por título ou gênero...">
+    <div class="filters" id="filters"></div>
+    <div class="catalog" id="all-dramas"></div>
+    <div class="empty" id="no-results" hidden>Nenhuma novelinha encontrada. Tente outra pesquisa.</div>
+  </section>
+
+  <section class="page" id="details">
+    <button class="secondary" onclick="showPage('catalog')">← Voltar ao catálogo</button>
+    <div class="detail-layout">
+      <div class="detail-poster" id="detail-poster"></div>
+      <div class="detail-copy">
+        <div class="eyebrow">Conheça a história</div>
+        <h1 id="detail-title"></h1>
+        <div id="detail-tags"></div>
+        <p id="detail-description"></p>
+        <p class="muted" id="detail-info"></p>
+        <button class="primary" onclick="purchaseDemo()">Comprar acesso</button>
+        <p class="muted">Demonstração: a compra ainda não está habilitada.</p>
+      </div>
     </div>
   </section>
 
-  <section id="purchases" class="hidden">
-    <div class="panel">
-      <h2>🛍️ Minhas compras</h2>
-      <p>Suas compras aparecerão aqui após a integração do sistema.</p>
+  <section class="page" id="purchases">
+    <h1>Minhas compras</h1>
+    <p class="muted">Aqui ficarão reunidas as histórias que você adquiriu.</p>
+    <div class="empty">
+      <h2>♡</h2>
+      <strong>Sua biblioteca está esperando por você!</strong>
+      <p>Quando você adquirir uma novelinha, ela aparecerá aqui.</p>
+      <button class="primary" onclick="showPage('catalog')">Explorar catálogo</button>
     </div>
   </section>
 
-  <section id="support" class="hidden">
+  <section class="page" id="vip">
+    <div class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">Uma experiência especial</div>
+        <h1>Seja VIP RePlay</h1>
+        <p>Prepare-se para descobrir uma experiência especial para quem ama novelinhas.</p>
+        <button class="primary" onclick="alert('A adesão VIP será configurada na etapa de pagamentos.')">Conhecer planos</button>
+      </div>
+    </div>
     <div class="panel">
-      <h2>💬 Suporte</h2>
-      <p>Precisa de ajuda? Nosso atendimento estará disponível aqui.</p>
-      <p>Em breve vamos configurar o contato oficial.</p>
+      <h2>Em breve, benefícios exclusivos</h2>
+      <p class="muted">Nesta área apresentaremos os planos, vantagens e condições da assinatura VIP.</p>
+    </div>
+  </section>
+
+  <section class="page" id="support">
+    <h1>Como podemos ajudar?</h1>
+    <p class="muted">Estamos aqui para ajudar com sua experiência na RePlay.</p>
+    <div class="panel">
+      <h3>Atendimento</h3>
+      <p class="muted">Em breve você poderá falar diretamente com nossa equipe pelo Telegram.</p>
+      <button class="primary" onclick="alert('O contato de suporte será conectado na próxima etapa.')">Falar com atendimento</button>
+    </div>
+    <div class="panel">
+      <h3>Dúvidas frequentes</h3>
+      <p><strong>Como comprar uma novelinha?</strong><br><span class="muted">Escolha uma história no catálogo. O sistema de compra será ativado em breve.</span></p>
+      <p><strong>Onde encontro minhas compras?</strong><br><span class="muted">Na seção Minhas compras da loja.</span></p>
+      <p><strong>Como recebo meu acesso?</strong><br><span class="muted">Após a confirmação da compra, o acesso será disponibilizado na sua biblioteca.</span></p>
     </div>
   </section>
 </main>
 
-<nav class="bottom">
-  <button class="active" data-view="home">⌂<br>Início</button>
-  <button data-view="home">▦<br>Catálogo</button>
-  <button data-view="vip">♛<br>Seja VIP</button>
-  <button data-view="purchases">♡<br>Compras</button>
-  <button data-view="support">✉<br>Suporte</button>
-</nav>
+<div class="mobile-nav">
+  <button class="active" data-page="home">⌂<br>Início</button>
+  <button data-page="catalog">▦<br>Catálogo</button>
+  <button data-page="purchases">♡<br>Compras</button>
+  <button data-page="vip">★<br>VIP</button>
+  <button data-page="support">☏<br>Suporte</button>
+</div>
+
+<footer>RePlay · Sua próxima história começa aqui.</footer>
 
 <script>
-const tg = window.Telegram?.WebApp;
-if (tg) {
-  tg.ready();
-  tg.expand();
-}
-
-const stories = [
-  {name:"Amor Proibido", genre:"Romance", color:"linear-gradient(145deg,#9b496f,#27162f)", description:"Uma história de amor cheia de segredos."},
-  {name:"A Herdeira", genre:"Drama", color:"linear-gradient(145deg,#526c9d,#18243c)", description:"Uma mulher precisa recuperar tudo que perdeu."},
-  {name:"Vingança Perfeita", genre:"Vingança", color:"linear-gradient(145deg,#9b493d,#28171c)", description:"Uma promessa de justiça muda tudo."},
-  {name:"Meu Chefe", genre:"Romance", color:"linear-gradient(145deg,#637b9f,#192b42)", description:"Um romance inesperado no trabalho."}
+const dramas = [
+  {
+    id:1,
+    title:"Amor Proibido",
+    genre:"Romance",
+    poster:"p1",
+    description:"Dois mundos diferentes, um encontro inesperado e um sentimento que nenhum dos dois estava preparado para viver. Quando o amor desafia todas as regras, será possível escolher o coração?",
+    episodes:"Série demonstrativa"
+  },
+  {
+    id:2,
+    title:"A Herdeira",
+    genre:"Drama",
+    poster:"p2",
+    description:"Após descobrir um segredo que muda sua vida, uma jovem precisa enfrentar uma família poderosa e descobrir quem realmente está ao seu lado.",
+    episodes:"Série demonstrativa"
+  },
+  {
+    id:3,
+    title:"Vingança Perfeita",
+    genre:"Suspense",
+    poster:"p3",
+    description:"Traída por quem mais confiava, ela retorna com uma nova identidade e um plano. Mas alguns sentimentos podem colocar tudo em risco.",
+    episodes:"Série demonstrativa"
+  },
+  {
+    id:4,
+    title:"Meu Chefe",
+    genre:"Romance",
+    poster:"p4",
+    description:"Ela só queria um emprego novo. Ele não queria misturar trabalho e sentimentos. Mas a convivência transforma completamente os planos dos dois.",
+    episodes:"Série demonstrativa"
+  },
+  {
+    id:5,
+    title:"Entre Dois Mundos",
+    genre:"Fantasia",
+    poster:"p5",
+    description:"Uma descoberta inesperada leva uma jovem a um universo cheio de mistérios, escolhas difíceis e encontros que podem mudar seu destino.",
+    episodes:"Série demonstrativa"
+  },
+  {
+    id:6,
+    title:"Segredos do Passado",
+    genre:"Drama",
+    poster:"p6",
+    description:"Uma carta antiga revela verdades escondidas durante anos. Agora, cada resposta abre uma nova pergunta.",
+    episodes:"Série demonstrativa"
+  }
 ];
 
-const catalog = document.getElementById("catalog");
+let selectedGenre = "Todos";
 
-function renderStories(search="") {
-  catalog.innerHTML = "";
-  const filtered = stories.filter(s =>
-    (s.name + " " + s.genre).toLowerCase().includes(search.toLowerCase())
-  );
-
-  filtered.forEach(s => {
-    const card = document.createElement("div");
-    card.className = "card";
-    const poster = document.createElement("div");
-    poster.className = "poster";
-    poster.style.setProperty("--poster",s.color);
-    poster.textContent = s.name;
-
-    const genre = document.createElement("p");
-    genre.textContent = s.genre;
-
-    const button = document.createElement("button");
-    button.className = "details";
-    button.textContent = "Ver detalhes";
-    button.onclick = () => alert(
-      s.name + "\n\n" + s.description +
-      "\n\nCompra e acesso serão habilitados na próxima etapa."
-    );
-
-    card.append(poster,genre,button);
-    catalog.appendChild(card);
-  });
-
-  if (!filtered.length) {
-    catalog.textContent = "Nenhuma novelinha encontrada.";
-  }
+function card(drama){
+  return `
+    <article class="drama-card" onclick="openDetails(${drama.id})">
+      <div class="poster ${drama.poster}">
+        <span class="poster-title">${drama.title}</span>
+      </div>
+      <div class="card-info">
+        <strong>${drama.title}</strong>
+        <small>${drama.genre} · Demonstração</small>
+      </div>
+    </article>
+  `;
 }
 
-renderStories();
+function render(){
+  document.getElementById("featured").innerHTML =
+    dramas.slice(0,4).map(card).join("");
 
-document.getElementById("search").addEventListener("input",e => {
-  renderStories(e.target.value);
+  const genres = ["Todos",...new Set(dramas.map(d=>d.genre))];
+
+  document.getElementById("filters").innerHTML = genres.map(g=>
+    `<button class="filter ${selectedGenre===g?'active':''}" onclick="selectGenre('${g}')">${g}</button>`
+  ).join("");
+
+  filterDramas();
+}
+
+function selectGenre(genre){
+  selectedGenre=genre;
+  render();
+}
+
+function filterDramas(){
+  const term=document.getElementById("search").value.toLowerCase();
+
+  const results=dramas.filter(d=>
+    (selectedGenre==="Todos" || d.genre===selectedGenre) &&
+    (d.title.toLowerCase().includes(term) ||
+     d.genre.toLowerCase().includes(term))
+  );
+
+  document.getElementById("all-dramas").innerHTML =
+    results.map(card).join("");
+
+  document.getElementById("no-results").hidden =
+    results.length>0;
+}
+
+function showPage(page){
+  document.querySelectorAll(".page").forEach(p=>
+    p.classList.remove("active")
+  );
+
+  document.getElementById(page).classList.add("active");
+
+  document.querySelectorAll("[data-page]").forEach(b=>
+    b.classList.toggle("active",b.dataset.page===page)
+  );
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function openDetails(id){
+  const d=dramas.find(item=>item.id===id);
+  if(!d)return;
+
+  document.getElementById("detail-title").textContent=d.title;
+  document.getElementById("detail-poster").textContent=d.title;
+  document.getElementById("detail-poster").className=
+    "detail-poster "+d.poster;
+
+  document.getElementById("detail-tags").innerHTML=
+    `<span class="tag">${d.genre}</span>
+     <span class="tag">Demonstração</span>`;
+
+  document.getElementById("detail-description").textContent=
+    d.description;
+
+  document.getElementById("detail-info").textContent=
+    d.episodes;
+
+  showPage("details");
+}
+
+function purchaseDemo(){
+  alert("Esta é uma demonstração. Nenhum pagamento foi realizado. Vamos configurar as compras em uma próxima etapa.");
+}
+
+document.querySelectorAll("[data-page]").forEach(button=>{
+  button.addEventListener("click",()=>
+    showPage(button.dataset.page)
+  );
 });
 
-document.querySelectorAll("[data-view]").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll("main section").forEach(s => s.classList.add("hidden"));
-    document.getElementById(button.dataset.view).classList.remove("hidden");
-    document.querySelectorAll("[data-view]").forEach(b => b.classList.remove("active"));
-    button.classList.add("active");
-  });
-});
+render();
 </script>
 
 </body>
