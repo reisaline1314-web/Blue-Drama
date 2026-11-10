@@ -768,14 +768,12 @@ footer strong{color:var(--blue)}
 </div>
 
 
+
 <script>
 
 /*
 ====================================================
-CATÁLOGO EXTERNO
-====================================================
-As informações das novelinhas agora vêm do arquivo
-catalogo.json.
+CATÁLOGO EXTERNO - REPLAY
 ====================================================
 */
 
@@ -788,6 +786,45 @@ const searchInput = document.getElementById("search");
 
 let selectedGenre = "Todas";
 
+/*
+====================================================
+PREÇO
+====================================================
+*/
+
+function formatPrice(item) {
+
+  if (typeof item.priceBRL !== "number") {
+    return "Preço em breve";
+  }
+
+  return item.priceBRL.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  });
+
+}
+
+/*
+====================================================
+IMAGEM
+====================================================
+*/
+
+function getImageUrl(item) {
+
+  if (!item.image) return "";
+
+  return `./${item.image}`;
+
+}
+
+/*
+====================================================
+CRIAR CARTÕES
+====================================================
+*/
+
 function createCard(item){
 
   const card = document.createElement("article");
@@ -796,9 +833,13 @@ function createCard(item){
   const cover = document.createElement("div");
   cover.className = "cover " + (item.poster || "");
 
-  if(item.image){
+  const imageUrl = getImageUrl(item);
+
+  if(imageUrl){
     cover.style.backgroundImage =
-      `linear-gradient(0deg,#080b2088,transparent),url("${item.image}")`;
+      `linear-gradient(0deg,#080b2088,transparent),url("${imageUrl}")`;
+    cover.style.backgroundSize = "cover";
+    cover.style.backgroundPosition = "center";
   }
 
   const posterTitle = document.createElement("span");
@@ -815,9 +856,6 @@ function createCard(item){
   const title = document.createElement("h3");
   title.textContent = item.title;
 
-  const description = document.createElement("p");
-  description.textContent = item.synopsis;
-
   info.appendChild(genre);
 
   if(item.label){
@@ -828,7 +866,17 @@ function createCard(item){
   }
 
   info.appendChild(title);
-  info.appendChild(description);
+
+  const price = document.createElement("div");
+  price.className = "card-price";
+  price.textContent = formatPrice(item);
+
+  price.style.fontWeight = "bold";
+  price.style.fontSize = "16px";
+  price.style.margin = "12px 0";
+  price.style.color = "#c7b5ff";
+
+  info.appendChild(price);
 
   const button = document.createElement("button");
   button.textContent = "Conhecer história";
@@ -841,6 +889,12 @@ function createCard(item){
 
   return card;
 }
+
+/*
+====================================================
+DESTAQUES
+====================================================
+*/
 
 function renderFeatured(){
 
@@ -857,6 +911,12 @@ function renderFeatured(){
       '<p class="empty">Novidades em breve!</p>';
   }
 }
+
+/*
+====================================================
+FILTROS
+====================================================
+*/
 
 function renderFilters(){
 
@@ -892,6 +952,12 @@ function renderFilters(){
   });
 }
 
+/*
+====================================================
+ATUALIZAR CATÁLOGO E BUSCA
+====================================================
+*/
+
 function updateCatalog(){
 
   const term = searchInput.value
@@ -906,7 +972,6 @@ function updateCatalog(){
 
     const matchesSearch =
       item.title.toLowerCase().includes(term) ||
-      item.synopsis.toLowerCase().includes(term) ||
       item.genre.toLowerCase().includes(term);
 
     return matchesGenre && matchesSearch;
@@ -939,25 +1004,65 @@ function showDetails(id){
   document.getElementById("detailsView").style.display = "block";
 
   document.getElementById("detailTitle").textContent = item.title;
+
   document.getElementById("detailPosterTitle").textContent = item.title;
+
   document.getElementById("detailMeta").textContent =
     item.genre + " • Novela curta";
 
-  document.getElementById("detailDescription").textContent =
-    item.synopsis;
+  // Não mostrar sinopse em nenhuma novelinha
+  const description = document.getElementById("detailDescription");
+  description.textContent = "";
+  description.style.display = "none";
 
   document.getElementById("detailLabel").textContent =
     item.label || "REPLAY";
 
+  // Mostrar preço na tela de detalhes
+  let detailPrice = document.getElementById("detailPrice");
+
+  if (!detailPrice) {
+
+    detailPrice = document.createElement("div");
+    detailPrice.id = "detailPrice";
+
+    detailPrice.style.fontSize = "22px";
+    detailPrice.style.fontWeight = "bold";
+    detailPrice.style.color = "#c7b5ff";
+    detailPrice.style.margin = "16px 0";
+
+    const meta = document.getElementById("detailMeta");
+
+    meta.parentNode.insertBefore(
+      detailPrice,
+      meta.nextSibling
+    );
+
+  }
+
+  detailPrice.textContent = formatPrice(item);
+
   const cover = document.getElementById("detailCover");
 
   cover.className = "detail-cover " + (item.poster || "");
-  cover.style.backgroundImage = item.image
-    ? `linear-gradient(0deg,#080b2088,transparent),url("${item.image}")`
+
+  const imageUrl = getImageUrl(item);
+
+  cover.style.backgroundImage = imageUrl
+    ? `linear-gradient(0deg,#080b2088,transparent),url("${imageUrl}")`
     : "";
+
+  cover.style.backgroundSize = "cover";
+  cover.style.backgroundPosition = "center";
 
   window.scrollTo(0,0);
 }
+
+/*
+====================================================
+AVISO DE COMPRA
+====================================================
+*/
 
 function showPurchaseNotice(){
 
@@ -1075,6 +1180,7 @@ searchInput.addEventListener("input", updateCatalog);
 loadCatalog();
 
 </script>
+
 
 
 </body>
