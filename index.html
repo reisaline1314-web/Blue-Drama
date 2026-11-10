@@ -8,25 +8,26 @@
 <title>RePlay | Novas histórias esperam por você</title>
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; scroll-behavior:smooth; }
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
 
-:root {
+:root{
   --blue:#83caff;
   --purple:#a78bfa;
   --muted:#a8aec5;
   --panel:#191e3b;
+  --background:#101329;
 }
 
-body {
+body{
   font-family:Arial,sans-serif;
-  background:#101329;
+  background:var(--background);
   color:white;
 }
 
-a { color:inherit; text-decoration:none; }
-button { font-family:inherit; cursor:pointer; }
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
 
-header {
+header{
   position:sticky;
   top:0;
   z-index:10;
@@ -35,7 +36,7 @@ header {
   backdrop-filter:blur(12px);
 }
 
-.nav {
+.nav{
   max-width:1150px;
   margin:auto;
   padding:17px 22px;
@@ -45,15 +46,15 @@ header {
   gap:20px;
 }
 
-.logo {
+.logo{
   font-size:27px;
   font-weight:800;
   letter-spacing:-1.5px;
 }
 
-.logo span { color:var(--blue); }
+.logo span{color:var(--blue)}
 
-.links {
+.links{
   display:flex;
   gap:20px;
   align-items:center;
@@ -61,16 +62,16 @@ header {
   color:#d7d9e8;
 }
 
-.links a:hover { color:var(--blue); }
+.links a:hover,.nav-button:hover{color:var(--blue)}
 
-.nav-button {
+.nav-button{
   background:none;
   border:none;
   color:inherit;
   font-size:13px;
 }
 
-.hero {
+.hero{
   max-width:1150px;
   margin:auto;
   padding:90px 22px 80px;
@@ -83,7 +84,7 @@ header {
     radial-gradient(ellipse at 10% 90%,#2878a755,transparent 45%);
 }
 
-.tag {
+.tag{
   color:var(--blue);
   font-size:11px;
   font-weight:bold;
@@ -92,16 +93,16 @@ header {
   margin-bottom:18px;
 }
 
-h1 {
+h1{
   font-size:clamp(40px,7vw,68px);
   line-height:1.08;
   max-width:720px;
   letter-spacing:-2px;
 }
 
-h1 span { color:var(--blue); }
+h1 span{color:var(--blue)}
 
-.hero p {
+.hero p{
   color:#c5c9dc;
   line-height:1.7;
   font-size:16px;
@@ -109,44 +110,42 @@ h1 span { color:var(--blue); }
   margin:20px 0 28px;
 }
 
-.primary {
+.primary,.secondary{
   display:inline-block;
   width:fit-content;
-  background:linear-gradient(110deg,#67baff,#9584f6);
-  color:#101329;
   padding:15px 23px;
   border-radius:9px;
   font-weight:800;
   font-size:13px;
+}
+
+.primary{
+  background:linear-gradient(110deg,#67baff,#9584f6);
+  color:#101329;
   border:none;
 }
 
-.secondary {
-  display:inline-block;
+.secondary{
   color:#d8eaff;
   border:1px solid #515a7b;
-  padding:14px 22px;
-  border-radius:9px;
-  font-size:13px;
-  font-weight:bold;
 }
 
-.hero-actions {
+.hero-actions,.purchase-actions{
   display:flex;
   flex-wrap:wrap;
   gap:12px;
 }
 
-section {
+section{
   max-width:1150px;
   margin:auto;
   padding:62px 22px;
   scroll-margin-top:75px;
 }
 
-.section-heading { margin-bottom:25px; }
+.section-heading{margin-bottom:25px}
 
-.section-heading small {
+.section-heading small{
   color:var(--blue);
   text-transform:uppercase;
   letter-spacing:2px;
@@ -154,30 +153,33 @@ section {
   font-size:11px;
 }
 
-.section-heading h2 {
+.section-heading h2{
   font-size:30px;
   margin-top:9px;
 }
 
-.section-heading p {
+.section-heading p{
   color:var(--muted);
   font-size:14px;
   margin-top:9px;
   line-height:1.6;
 }
 
-.vip-panel {
+.vip-panel,.simple-panel{
   background:linear-gradient(120deg,#202b52,#33264e);
   border:1px solid #45436c;
   border-radius:15px;
   padding:30px;
+}
+
+.vip-panel{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:25px;
 }
 
-.vip-panel p {
+.vip-panel p,.simple-panel p{
   color:#c4c9dc;
   line-height:1.7;
   font-size:14px;
@@ -185,9 +187,9 @@ section {
   max-width:570px;
 }
 
-.search {
+.search{
   width:100%;
-  max-width:420px;
+  max-width:500px;
   padding:14px 16px;
   border-radius:9px;
   border:1px solid #343b5e;
@@ -197,16 +199,16 @@ section {
   margin-bottom:17px;
 }
 
-.search:focus { border-color:var(--blue); }
+.search:focus{border-color:var(--blue)}
 
-.filters {
+.filters{
   display:flex;
   gap:9px;
   flex-wrap:wrap;
   margin-bottom:25px;
 }
 
-.filter {
+.filter{
   background:#202644;
   border:1px solid #343b5e;
   color:#d4d8e9;
@@ -215,19 +217,19 @@ section {
   font-size:12px;
 }
 
-.filter.active,.filter:hover {
+.filter.active,.filter:hover{
   background:var(--blue);
   border-color:var(--blue);
   color:#101329;
 }
 
-.catalog {
+.catalog{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:20px;
 }
 
-.card {
+.card{
   overflow:hidden;
   background:var(--panel);
   border:1px solid #292f50;
@@ -235,54 +237,68 @@ section {
   transition:.2s;
 }
 
-.card:hover {
+.card:hover{
   transform:translateY(-4px);
   border-color:#6976a5;
 }
 
-.cover {
-  height:205px;
+.cover{
+  height:260px;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
   padding:20px;
-  font-size:23px;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(145deg,#242b65,#7543a5);
+  background-size:cover;
+  background-position:center;
+}
+
+.cover::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(0deg,#080b20aa,transparent 75%);
+}
+
+.cover span{
+  position:relative;
+  z-index:1;
+  max-width:220px;
+  text-shadow:0 2px 12px #0008;
+  font-size:25px;
   font-weight:900;
   letter-spacing:-1px;
 }
 
-.cover span {
-  max-width:190px;
-  text-shadow:0 2px 12px #0008;
-}
+.poster-1{background-image:linear-gradient(135deg,#44264f,#bd6689)}
+.poster-2{background-image:linear-gradient(135deg,#182e5a,#6489c8)}
+.poster-3{background-image:linear-gradient(135deg,#5b2536,#d67b69)}
+.poster-4{background-image:linear-gradient(135deg,#263c51,#6c9a9b)}
+.poster-5{background-image:linear-gradient(135deg,#322452,#9978c7)}
+.poster-6{background-image:linear-gradient(135deg,#493c27,#bd985c)}
 
-.c1 { background:linear-gradient(135deg,#44264f,#bd6689); }
-.c2 { background:linear-gradient(135deg,#182e5a,#6489c8); }
-.c3 { background:linear-gradient(135deg,#5b2536,#d67b69); }
-.c4 { background:linear-gradient(135deg,#263c51,#6c9a9b); }
-.c5 { background:linear-gradient(135deg,#322452,#9978c7); }
-.c6 { background:linear-gradient(135deg,#493c27,#bd985c); }
+.card-info{padding:16px}
 
-.card-info { padding:16px; }
-
-.genre {
+.genre{
   color:var(--blue);
   font-size:11px;
   font-weight:bold;
   text-transform:uppercase;
 }
 
-.card h3 { font-size:17px; margin:8px 0; }
+.card h3{font-size:17px;margin:8px 0}
 
-.card p {
+.card p{
   color:var(--muted);
   font-size:12px;
   line-height:1.5;
   min-height:38px;
 }
 
-.card button {
+.card button{
   margin-top:15px;
   width:100%;
   padding:11px;
@@ -293,62 +309,59 @@ section {
   font-weight:bold;
 }
 
-.card button:hover { background:#34416d; }
+.card button:hover{background:#34416d}
 
-.empty {
+.card-label{
+  display:inline-block;
+  background:#2d3760;
+  color:#c5dcff;
+  border-radius:5px;
+  padding:5px 8px;
+  font-size:10px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.empty{
   display:none;
   color:var(--muted);
-  padding:20px 0;
+  padding:25px 0;
 }
 
-.simple-panel {
-  background:linear-gradient(120deg,#1c2446,#292044);
-  border:1px solid #343b5e;
-  border-radius:15px;
-  padding:30px;
+.featured-section{
+  background:radial-gradient(ellipse at 50% 50%,#38305d44,transparent 70%);
 }
 
-.simple-panel p {
-  color:var(--muted);
-  line-height:1.7;
-  margin:12px 0 20px;
-  font-size:14px;
-}
-
-.how-grid {
+.how-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:16px;
   margin-top:25px;
 }
 
-.how-card {
+.how-card{
   background:#191e3b;
   border:1px solid #303657;
   padding:23px;
   border-radius:12px;
 }
 
-.number {
+.number{
   font-size:28px;
   font-weight:900;
   color:var(--blue);
   margin-bottom:13px;
 }
 
-.how-card h3 { font-size:16px; margin-bottom:9px; }
+.how-card h3{font-size:16px;margin-bottom:9px}
 
-.how-card p {
+.how-card p{
   color:var(--muted);
   font-size:13px;
   line-height:1.6;
 }
 
-.how-section {
-  background:radial-gradient(ellipse at 50% 100%,#38305d55,transparent 65%);
-}
-
-footer {
+footer{
   border-top:1px solid #292e4c;
   padding:25px 20px;
   text-align:center;
@@ -356,21 +369,22 @@ footer {
   font-size:12px;
 }
 
-footer strong { color:var(--blue); }
+footer strong{color:var(--blue)}
 
-/* TELA MINHAS COMPRAS */
-#purchasesView {
+/* TELAS INTERNAS */
+
+.internal-view{
   display:none;
   min-height:75vh;
 }
 
-.purchases-content {
-  max-width:950px;
+.internal-content{
+  max-width:1000px;
   margin:auto;
-  padding:55px 22px 80px;
+  padding:45px 22px 80px;
 }
 
-.back-link {
+.back-link{
   display:inline-block;
   color:var(--blue);
   font-size:13px;
@@ -380,35 +394,35 @@ footer strong { color:var(--blue); }
   border:none;
 }
 
-.purchase-title {
+.purchase-title{
   font-size:36px;
   margin-bottom:10px;
 }
 
-.purchase-subtitle {
+.purchase-subtitle{
   color:var(--muted);
   line-height:1.6;
   font-size:14px;
   margin-bottom:30px;
 }
 
-.library-box {
+.library-box{
   background:#191e3b;
   border:1px solid #343b5e;
   border-radius:15px;
   padding:28px;
 }
 
-.library-box h3 { font-size:19px; margin-bottom:8px; }
+.library-box h3{font-size:19px;margin-bottom:8px}
 
-.library-box > p {
+.library-box>p{
   color:var(--muted);
   font-size:13px;
   line-height:1.6;
   margin-bottom:20px;
 }
 
-.empty-library {
+.empty-library{
   border:1px dashed #4a5275;
   border-radius:12px;
   padding:35px 20px;
@@ -416,50 +430,22 @@ footer strong { color:var(--blue); }
   color:var(--muted);
 }
 
-.empty-library .symbol {
-  font-size:38px;
-  margin-bottom:15px;
-}
+.empty-library .symbol{font-size:38px;margin-bottom:15px}
 
-.empty-library h4 {
+.empty-library h4{
   color:white;
   font-size:17px;
   margin-bottom:9px;
 }
 
-.empty-library p {
+.empty-library p{
   font-size:13px;
   line-height:1.6;
   max-width:420px;
   margin:auto;
 }
 
-.purchase-list {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
-}
-
-.purchase-item {
-  background:#202644;
-  border:1px solid #343b5e;
-  border-radius:10px;
-  padding:17px;
-}
-
-.purchase-item h4 { margin-bottom:10px; }
-
-.purchase-item button {
-  width:100%;
-  padding:11px;
-  border:0;
-  border-radius:7px;
-  background:var(--blue);
-  color:#101329;
-  font-weight:bold;
-}
-
-.personal-note {
+.personal-note{
   margin-top:20px;
   padding:18px;
   border-radius:10px;
@@ -467,26 +453,16 @@ footer strong { color:var(--blue); }
   border:1px solid #343b5e;
 }
 
-.personal-note strong {
-  color:var(--blue);
-  font-size:13px;
-}
+.personal-note strong{color:var(--blue);font-size:13px}
 
-.personal-note p {
+.personal-note p{
   color:var(--muted);
   font-size:12px;
   line-height:1.6;
   margin-top:8px;
 }
 
-.purchase-actions {
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:22px;
-}
-
-.help-button {
+.help-button{
   padding:13px 18px;
   border:1px solid #596386;
   color:white;
@@ -495,40 +471,85 @@ footer strong { color:var(--blue); }
   font-weight:bold;
 }
 
-@media(max-width:750px) {
-  .nav {
-    align-items:flex-start;
-    flex-direction:column;
-    gap:13px;
-  }
+/* DETALHES */
 
-  .links {
-    width:100%;
-    overflow-x:auto;
-    padding-bottom:4px;
-    gap:18px;
-    white-space:nowrap;
-  }
-
-  .hero { padding-top:65px; min-height:390px; }
-
-  .catalog {
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-  }
-
-  .cover { height:155px; font-size:19px; }
-  .card-info { padding:12px; }
-  .card h3 { font-size:14px; }
-  .card p { font-size:11px; }
-  .how-grid { grid-template-columns:1fr; }
-  section { padding:48px 17px; }
-  .vip-panel { align-items:flex-start; flex-direction:column; }
-  .purchase-list { grid-template-columns:1fr; }
+.detail-layout{
+  display:flex;
+  flex-wrap:wrap;
+  gap:35px;
+  align-items:center;
+  margin-top:10px;
 }
 
-@media(max-width:390px) {
-  .cover { height:135px; }
+.detail-cover{
+  width:100%;
+  max-width:320px;
+  height:440px;
+  border-radius:18px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:25px;
+  background:linear-gradient(145deg,#242b65,#7543a5);
+  background-size:cover;
+  background-position:center;
+}
+
+.detail-cover span{
+  font-size:30px;
+  font-weight:900;
+  text-shadow:0 2px 12px #0008;
+}
+
+.detail-info{flex:1;min-width:250px}
+
+.detail-info h1{
+  font-size:clamp(32px,5vw,46px);
+  margin:15px 0;
+}
+
+.detail-meta{
+  color:#b9b9d0;
+  font-size:13px;
+  line-height:1.8;
+}
+
+.detail-description{
+  color:#d0d0df;
+  line-height:1.8;
+  margin-top:25px;
+  font-size:14px;
+}
+
+.detail-buy{
+  margin-top:25px;
+  padding:15px 28px;
+  border:0;
+  border-radius:10px;
+  background:linear-gradient(90deg,#67baff,#9584f6);
+  color:#101329;
+  font-weight:bold;
+}
+
+@media(max-width:750px){
+  .nav{align-items:flex-start;flex-direction:column;gap:13px}
+  .links{width:100%;overflow-x:auto;padding-bottom:4px;gap:18px;white-space:nowrap}
+  .hero{padding-top:65px;min-height:390px}
+  .catalog{grid-template-columns:repeat(2,1fr);gap:12px}
+  .cover{height:190px;font-size:19px}
+  .cover span{font-size:19px}
+  .card-info{padding:12px}
+  .card h3{font-size:14px}
+  .card p{font-size:11px}
+  .how-grid{grid-template-columns:1fr}
+  section{padding:48px 17px}
+  .vip-panel{align-items:flex-start;flex-direction:column}
+  .detail-cover{max-width:100%;height:350px}
+}
+
+@media(max-width:390px){
+  .cover{height:155px}
 }
 </style>
 </head>
@@ -550,197 +571,132 @@ footer strong { color:var(--blue); }
   </nav>
 </header>
 
-<!-- LOJA PRINCIPAL -->
+<!-- LOJA -->
+
 <div id="storeView">
 
-  <main>
+<main>
 
-    <div class="hero" id="inicio">
-      <div class="tag">Um universo de histórias espera por você</div>
+  <div class="hero" id="inicio">
+    <div class="tag">Um universo de histórias espera por você</div>
 
-      <h1>Bem-vinda à <span>RePlay!</span></h1>
+    <h1>Bem-vinda à <span>RePlay!</span></h1>
 
-      <p>
-        Prepare-se para conhecer personagens inesquecíveis,
-        descobrir novos romances e se envolver em histórias
-        cheias de reviravoltas. Sua próxima favorita está aqui.
-      </p>
+    <p>
+      Prepare-se para conhecer personagens inesquecíveis,
+      descobrir novos romances e se envolver em histórias
+      cheias de reviravoltas. Sua próxima favorita está aqui.
+    </p>
 
-      <div class="hero-actions">
-        <a class="primary" href="#catalogo">ENCONTRAR MINHA SÉRIE ↓</a>
-        <a class="secondary" href="#como-funciona">COMO FUNCIONA?</a>
-      </div>
+    <div class="hero-actions">
+      <a class="primary" href="#catalogo">ENCONTRAR MINHA SÉRIE ↓</a>
+      <a class="secondary" href="#como-funciona">COMO FUNCIONA?</a>
+    </div>
+  </div>
+
+  <section id="vip">
+    <div class="section-heading">
+      <small>Uma experiência especial</small>
+      <h2>RePlay VIP</h2>
+      <p>Um espaço especial que estamos preparando para você.</p>
     </div>
 
-    <!-- VIP ANTES DO CATÁLOGO -->
-    <section id="vip">
-      <div class="section-heading">
-        <small>Uma experiência especial</small>
-        <h2>RePlay VIP</h2>
-        <p>Um espaço especial que estamos preparando para você.</p>
+    <div class="vip-panel">
+      <div>
+        <h3>Vem aí uma nova forma de maratonar!</h3>
+        <p>Estamos preparando novidades para deixar sua experiência na RePlay ainda mais especial.</p>
+      </div>
+      <span class="tag">Novidades em breve</span>
+    </div>
+  </section>
+
+  <section class="featured-section" id="destaques">
+    <div class="section-heading">
+      <small>Escolhas da RePlay</small>
+      <h2>Em destaque</h2>
+      <p>Histórias selecionadas para você conhecer.</p>
+    </div>
+    <div class="catalog" id="featuredSeries"></div>
+  </section>
+
+  <section id="catalogo">
+    <div class="section-heading">
+      <small>Escolha sua próxima história</small>
+      <h2>Explore as novelinhas</h2>
+      <p>Encontre uma história que combine com você.</p>
+    </div>
+
+    <input class="search" id="search" type="search"
+      placeholder="Buscar por nome ou história...">
+
+    <div class="filters" id="filters"></div>
+
+    <div class="catalog" id="series"></div>
+
+    <p class="empty" id="empty">Nenhuma novelinha encontrada.</p>
+  </section>
+
+  <section id="suporte">
+    <div class="section-heading">
+      <small>Estamos aqui para ajudar</small>
+      <h2>Precisa de ajuda?</h2>
+    </div>
+
+    <div class="simple-panel">
+      <h3>Conte com a RePlay.</h3>
+      <p>
+        Tem alguma dúvida sobre sua compra ou precisa de atendimento?
+        Nosso suporte estará disponível para ajudar.
+      </p>
+      <span class="tag">Atendimento em breve</span>
+    </div>
+  </section>
+
+  <section id="como-funciona" class="featured-section">
+    <div class="section-heading">
+      <small>É simples aproveitar</small>
+      <h2>Como funciona?</h2>
+      <p>Três passos para começar sua próxima maratona.</p>
+    </div>
+
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="number">01</div>
+        <h3>Encontre sua história</h3>
+        <p>Explore o catálogo e escolha a novelinha que mais chamou sua atenção.</p>
       </div>
 
-      <div class="vip-panel">
-        <div>
-          <h3>Vem aí uma nova forma de maratonar!</h3>
-          <p>
-            Estamos preparando novidades para deixar sua
-            experiência na RePlay ainda mais especial.
-          </p>
-        </div>
-        <span class="tag">Novidades em breve</span>
-      </div>
-    </section>
-
-    <!-- CATÁLOGO -->
-    <section id="catalogo">
-      <div class="section-heading">
-        <small>Escolha sua próxima história</small>
-        <h2>Explore as novelinhas</h2>
-        <p>Encontre uma história que combine com você.</p>
+      <div class="how-card">
+        <div class="number">02</div>
+        <h3>Confirme seu pagamento</h3>
+        <p>Escolha seu acesso e conclua o pagamento pelo método disponível na loja.</p>
       </div>
 
-      <input class="search" id="search" type="search"
-        placeholder="Buscar uma novelinha...">
-
-      <div class="filters">
-        <button class="filter active" data-filter="Todos">Todas</button>
-        <button class="filter" data-filter="Romance">Romance</button>
-        <button class="filter" data-filter="Drama">Drama</button>
-        <button class="filter" data-filter="Mistério">Mistério</button>
-        <button class="filter" data-filter="Vingança">Vingança</button>
+      <div class="how-card">
+        <div class="number">03</div>
+        <h3>Comece a assistir</h3>
+        <p>Após a confirmação, receba seu acesso e aproveite sua nova história.</p>
       </div>
+    </div>
+  </section>
 
-      <div class="catalog" id="series">
+</main>
 
-        <article class="card" data-title="Amor Proibido" data-genre="Romance">
-          <div class="cover c1"><span>AMOR PROIBIDO</span></div>
-          <div class="card-info">
-            <span class="genre">Romance</span>
-            <h3>Amor Proibido</h3>
-            <p>Um sentimento inesperado muda tudo o que ela conhecia.</p>
-            <button onclick="showDemo('Amor Proibido')">Conhecer história</button>
-          </div>
-        </article>
-
-        <article class="card" data-title="A Herdeira" data-genre="Drama">
-          <div class="cover c2"><span>A HERDEIRA</span></div>
-          <div class="card-info">
-            <span class="genre">Drama</span>
-            <h3>A Herdeira</h3>
-            <p>Uma descoberta transforma completamente seu destino.</p>
-            <button onclick="showDemo('A Herdeira')">Conhecer história</button>
-          </div>
-        </article>
-
-        <article class="card" data-title="Vingança Perfeita" data-genre="Vingança">
-          <div class="cover c3"><span>VINGANÇA PERFEITA</span></div>
-          <div class="card-info">
-            <span class="genre">Vingança</span>
-            <h3>Vingança Perfeita</h3>
-            <p>Depois de uma traição, ela decide escrever seu próprio final.</p>
-            <button onclick="showDemo('Vingança Perfeita')">Conhecer história</button>
-          </div>
-        </article>
-
-        <article class="card" data-title="Meu Chefe" data-genre="Romance">
-          <div class="cover c4"><span>MEU CHEFE</span></div>
-          <div class="card-info">
-            <span class="genre">Romance</span>
-            <h3>Meu Chefe</h3>
-            <p>O que era para ser apenas trabalho se torna algo a mais.</p>
-            <button onclick="showDemo('Meu Chefe')">Conhecer história</button>
-          </div>
-        </article>
-
-        <article class="card" data-title="Entre Dois Mundos" data-genre="Mistério">
-          <div class="cover c5"><span>ENTRE DOIS MUNDOS</span></div>
-          <div class="card-info">
-            <span class="genre">Mistério</span>
-            <h3>Entre Dois Mundos</h3>
-            <p>Segredos do passado escondem respostas surpreendentes.</p>
-            <button onclick="showDemo('Entre Dois Mundos')">Conhecer história</button>
-          </div>
-        </article>
-
-        <article class="card" data-title="Segredos do Passado" data-genre="Drama">
-          <div class="cover c6"><span>SEGREDOS DO PASSADO</span></div>
-          <div class="card-info">
-            <span class="genre">Drama</span>
-            <h3>Segredos do Passado</h3>
-            <p>Uma verdade esquecida ameaça mudar o presente.</p>
-            <button onclick="showDemo('Segredos do Passado')">Conhecer história</button>
-          </div>
-        </article>
-
-      </div>
-
-      <p class="empty" id="empty">Nenhuma novelinha encontrada.</p>
-    </section>
-
-    <!-- SUPORTE -->
-    <section id="suporte">
-      <div class="section-heading">
-        <small>Estamos aqui para ajudar</small>
-        <h2>Precisa de ajuda?</h2>
-      </div>
-
-      <div class="simple-panel">
-        <h3>Conte com a RePlay.</h3>
-        <p>
-          Tem alguma dúvida sobre sua compra ou precisa de
-          atendimento? Nosso suporte estará disponível para ajudar.
-        </p>
-        <span class="tag">Atendimento em breve</span>
-      </div>
-    </section>
-
-    <!-- COMO FUNCIONA NO FINAL -->
-    <section class="how-section" id="como-funciona">
-      <div class="section-heading">
-        <small>É simples aproveitar</small>
-        <h2>Como funciona?</h2>
-        <p>Três passos para começar sua próxima maratona.</p>
-      </div>
-
-      <div class="how-grid">
-        <div class="how-card">
-          <div class="number">01</div>
-          <h3>Encontre sua história</h3>
-          <p>Explore o catálogo e escolha a novelinha que mais chamou sua atenção.</p>
-        </div>
-
-        <div class="how-card">
-          <div class="number">02</div>
-          <h3>Confirme seu pagamento</h3>
-          <p>Escolha seu acesso e conclua o pagamento pelo método disponível na loja.</p>
-        </div>
-
-        <div class="how-card">
-          <div class="number">03</div>
-          <h3>Comece a assistir</h3>
-          <p>Após a confirmação, receba seu acesso e aproveite sua nova história.</p>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <strong>RePlay</strong> · Novas histórias esperam por você.
-  </footer>
+<footer>
+  <strong>RePlay</strong> · Novas histórias esperam por você.
+</footer>
 </div>
 
-<!-- TELA SEPARADA DE MINHAS COMPRAS -->
-<div id="purchasesView">
-  <div class="purchases-content">
+<!-- MINHAS COMPRAS -->
 
-    <button class="back-link" onclick="showStore()">
-      ← Voltar à loja
-    </button>
+<div id="purchasesView" class="internal-view">
+  <div class="internal-content">
+
+    <button class="back-link" onclick="showStore()">← Voltar à loja</button>
 
     <div class="tag">Sua biblioteca pessoal</div>
     <h1 class="purchase-title">Minhas séries</h1>
+
     <p class="purchase-subtitle">
       Selecione uma de suas séries para encontrar seu acesso.
       Todas as suas novelinhas adquiridas ficarão reunidas aqui.
@@ -750,7 +706,7 @@ footer strong { color:var(--blue); }
       <h3>Suas novelinhas</h3>
       <p>Seus acessos estarão organizados nesta área.</p>
 
-      <div class="empty-library" id="emptyLibrary">
+      <div class="empty-library">
         <div class="symbol">🎬</div>
         <h4>Sua próxima maratona começa aqui!</h4>
         <p>
@@ -758,8 +714,6 @@ footer strong { color:var(--blue); }
           nesta área para que possa acessar sua história.
         </p>
       </div>
-
-      <div class="purchase-list" id="purchaseList"></div>
     </div>
 
     <div class="personal-note">
@@ -767,140 +721,411 @@ footer strong { color:var(--blue); }
       <p>
         O link disponibilizado para entrar no canal privado
         do Telegram é individual e destinado somente à pessoa
-        que realizou a compra. Não compartilhe seu link com
-        outras pessoas.
+        que realizou a compra. Não compartilhe seu link.
       </p>
     </div>
 
     <div class="purchase-actions">
       <button class="help-button" onclick="purchaseHelp()">
-        Preciso de ajuda: minha série não apareceu
+        Preciso de ajuda
       </button>
+      <button class="primary" onclick="showStore()">VOLTAR À LOJA</button>
+    </div>
 
-      <button class="primary" onclick="showStore()">
-        VOLTAR À LOJA
-      </button>
+  </div>
+</div>
+
+<!-- DETALHES DA SÉRIE -->
+
+<div id="detailsView" class="internal-view">
+  <div class="internal-content">
+
+    <button class="back-link" onclick="showCatalog()">← Voltar ao catálogo</button>
+
+    <div class="detail-layout">
+      <div class="detail-cover" id="detailCover">
+        <span id="detailPosterTitle">🎬</span>
+      </div>
+
+      <div class="detail-info">
+        <span class="tag" id="detailLabel">REPLAY</span>
+
+        <h1 id="detailTitle"></h1>
+
+        <p class="detail-meta" id="detailMeta"></p>
+
+        <h3 style="margin-top:28px">Sobre essa história</h3>
+
+        <p class="detail-description" id="detailDescription"></p>
+
+        <button class="detail-buy" onclick="showPurchaseNotice()">
+          QUERO ASSISTIR
+        </button>
+      </div>
     </div>
 
   </div>
 </div>
 
 <script>
-  function showDemo(title) {
-  const store = document.getElementById("storeView");
-  const purchases = document.getElementById("purchasesView");
 
-  store.style.display = "none";
-  purchases.style.display = "none";
+/*
+====================================================
+CADASTRO DAS SÉRIES
+====================================================
 
-  document.getElementById("detailsView").style.display = "block";
-  document.getElementById("detailTitle").textContent = title;
+Para adicionar uma novelinha, copie um objeto inteiro
+desta lista e altere as informações.
 
-  window.scrollTo(0, 0);
+poster: "poster-1" até "poster-6"
+Para usar uma capa própria, futuramente vamos adicionar
+o endereço da imagem no campo image.
+
+featured: true coloca a série na área de destaques.
+new: true mostra a etiqueta NOVIDADE.
+
+*/
+
+const seriesData = [
+
+  {
+    id:1,
+    title:"Amor Proibido",
+    genre:"Romance",
+    synopsis:"Um sentimento inesperado muda tudo o que ela conhecia. Entre escolhas difíceis e emoções intensas, uma história começa a ganhar vida.",
+    poster:"poster-1",
+    image:"",
+    featured:true,
+    new:true,
+    label:"DESTAQUE"
+  },
+
+  {
+    id:2,
+    title:"A Herdeira",
+    genre:"Drama",
+    synopsis:"Uma descoberta transforma completamente seu destino. Agora ela precisa enfrentar verdades que podem mudar sua vida para sempre.",
+    poster:"poster-2",
+    image:"",
+    featured:true,
+    new:false,
+    label:"DESTAQUE"
+  },
+
+  {
+    id:3,
+    title:"Vingança Perfeita",
+    genre:"Vingança",
+    synopsis:"Depois de uma traição, ela decide escrever seu próprio final. Mas cada passo dessa jornada revela novos segredos.",
+    poster:"poster-3",
+    image:"",
+    featured:true,
+    new:true,
+    label:"NOVIDADE"
+  },
+
+  {
+    id:4,
+    title:"Meu Chefe",
+    genre:"Romance",
+    synopsis:"O que era para ser apenas trabalho se transforma em algo inesperado. Um romance cheio de conflitos e descobertas.",
+    poster:"poster-4",
+    image:"",
+    featured:false,
+    new:false,
+    label:""
+  },
+
+  {
+    id:5,
+    title:"Entre Dois Mundos",
+    genre:"Mistério",
+    synopsis:"Segredos do passado escondem respostas surpreendentes. Uma história em que nada é exatamente o que parece.",
+    poster:"poster-5",
+    image:"",
+    featured:false,
+    new:false,
+    label:""
+  },
+
+  {
+    id:6,
+    title:"Segredos do Passado",
+    genre:"Drama",
+    synopsis:"Uma verdade esquecida ameaça mudar o presente. Algumas histórias nunca ficam realmente para trás.",
+    poster:"poster-6",
+    image:"",
+    featured:false,
+    new:false,
+    label:""
+  }
+
+];
+
+/*
+====================================================
+FUNÇÕES DO CATÁLOGO
+====================================================
+*/
+
+const seriesContainer = document.getElementById("series");
+const featuredContainer = document.getElementById("featuredSeries");
+const filtersContainer = document.getElementById("filters");
+const searchInput = document.getElementById("search");
+
+let selectedGenre = "Todas";
+
+function escapeHTML(text){
+  return String(text ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[char]));
 }
 
-  // Abre a tela separada de compras.
-  function showPurchases() {
-    document.getElementById("storeView").style.display = "none";
-    document.getElementById("purchasesView").style.display = "block";
-    window.scrollTo(0, 0);
+function createCard(item){
+
+  const card = document.createElement("article");
+  card.className = "card";
+
+  const cover = document.createElement("div");
+  cover.className = "cover " + (item.poster || "");
+
+  if(item.image){
+    cover.style.backgroundImage =
+      `linear-gradient(0deg,#080b2088,transparent),url("${item.image}")`;
   }
 
-  // Volta à loja.
-  function showStore() {
-    document.getElementById("purchasesView").style.display = "none";
-    document.getElementById("storeView").style.display = "block";
-    window.scrollTo(0, 0);
+  const posterTitle = document.createElement("span");
+  posterTitle.textContent = item.title;
+  cover.appendChild(posterTitle);
+
+  const info = document.createElement("div");
+  info.className = "card-info";
+
+  const genre = document.createElement("span");
+  genre.className = "genre";
+  genre.textContent = item.genre;
+
+  const title = document.createElement("h3");
+  title.textContent = item.title;
+
+  const description = document.createElement("p");
+  description.textContent = item.synopsis;
+
+  info.appendChild(genre);
+
+  if(item.label){
+    const label = document.createElement("div");
+    label.className = "card-label";
+    label.textContent = item.label;
+    info.appendChild(label);
   }
 
-  // Ajuda para compras não exibidas.
-  function purchaseHelp() {
-    alert(
-      "Estamos preparando nosso atendimento.\n\n" +
-      "Quando o suporte estiver conectado, você poderá " +
-      "solicitar ajuda caso sua novelinha não apareça."
-    );
+  info.appendChild(title);
+  info.appendChild(description);
+
+  const button = document.createElement("button");
+  button.textContent = "Conhecer história";
+  button.addEventListener("click", () => showDetails(item.id));
+
+  info.appendChild(button);
+
+  card.appendChild(cover);
+  card.appendChild(info);
+
+  return card;
+}
+
+function renderFeatured(){
+
+  featuredContainer.innerHTML = "";
+
+  const featured = seriesData.filter(item => item.featured);
+
+  featured.forEach(item => {
+    featuredContainer.appendChild(createCard(item));
+  });
+
+  if(featured.length === 0){
+    featuredContainer.innerHTML =
+      '<p class="empty">Novidades em breve!</p>';
   }
+}
 
-  // Pesquisa e filtros do catálogo.
-  const search = document.getElementById("search");
-  const cards = document.querySelectorAll(".card");
-  const filters = document.querySelectorAll(".filter");
-  const empty = document.getElementById("empty");
+function renderFilters(){
 
-  let selectedGenre = "Todos";
+  filtersContainer.innerHTML = "";
 
-  function updateCatalog() {
-    const term = search.value.toLowerCase();
-    let visible = 0;
+  const genres = [
+    "Todas",
+    ...new Set(seriesData.map(item => item.genre))
+  ];
 
-    cards.forEach(card => {
-      const title = card.dataset.title.toLowerCase();
-      const genre = card.dataset.genre;
+  genres.forEach(genre => {
 
-      const matchesSearch = title.includes(term);
-      const matchesGenre =
-        selectedGenre === "Todos" || genre === selectedGenre;
+    const button = document.createElement("button");
+    button.className = "filter";
+    button.textContent = genre;
+    button.dataset.genre = genre;
 
-      const show = matchesSearch && matchesGenre;
-      card.style.display = show ? "" : "none";
-
-      if (show) visible++;
-    });
-
-    empty.style.display = visible === 0 ? "block" : "none";
-  }
-
-  search.addEventListener("input", updateCatalog);
-
-  filters.forEach(button => {
-    button.addEventListener("click", () => {
-      filters.forEach(item => item.classList.remove("active"));
+    if(genre === selectedGenre){
       button.classList.add("active");
+    }
 
-      selectedGenre = button.dataset.filter;
+    button.addEventListener("click", () => {
+      selectedGenre = genre;
+      renderFilters();
       updateCatalog();
     });
+
+    filtersContainer.appendChild(button);
   });
+}
+
+function updateCatalog(){
+
+  const term = searchInput.value
+    .trim()
+    .toLowerCase();
+
+  const filtered = seriesData.filter(item => {
+
+    const matchesGenre =
+      selectedGenre === "Todas" ||
+      item.genre === selectedGenre;
+
+    const matchesSearch =
+      item.title.toLowerCase().includes(term) ||
+      item.synopsis.toLowerCase().includes(term) ||
+      item.genre.toLowerCase().includes(term);
+
+    return matchesGenre && matchesSearch;
+  });
+
+  seriesContainer.innerHTML = "";
+
+  filtered.forEach(item => {
+    seriesContainer.appendChild(createCard(item));
+  });
+
+  document.getElementById("empty").style.display =
+    filtered.length === 0 ? "block" : "none";
+}
+
+/*
+====================================================
+TELA DE DETALHES
+====================================================
+*/
+
+function showDetails(id){
+
+  const item = seriesData.find(series => series.id === id);
+
+  if(!item) return;
+
+  hideAllViews();
+
+  document.getElementById("detailsView").style.display = "block";
+
+  document.getElementById("detailTitle").textContent = item.title;
+  document.getElementById("detailPosterTitle").textContent = item.title;
+  document.getElementById("detailMeta").textContent =
+    item.genre + " • Novela curta";
+
+  document.getElementById("detailDescription").textContent =
+    item.synopsis;
+
+  document.getElementById("detailLabel").textContent =
+    item.label || "REPLAY";
+
+  const cover = document.getElementById("detailCover");
+
+  cover.className = "detail-cover " + (item.poster || "");
+  cover.style.backgroundImage = item.image
+    ? `linear-gradient(0deg,#080b2088,transparent),url("${item.image}")`
+    : "";
+
+  window.scrollTo(0,0);
+}
+
+function showPurchaseNotice(){
+
+  alert(
+    "A compra desta série será disponibilizada em breve! 💙"
+  );
+
+}
+
+/*
+====================================================
+NAVEGAÇÃO ENTRE TELAS
+====================================================
+*/
+
+function hideAllViews(){
+
+  document.getElementById("storeView").style.display = "none";
+  document.getElementById("purchasesView").style.display = "none";
+  document.getElementById("detailsView").style.display = "none";
+
+}
+
+function showStore(){
+
+  hideAllViews();
+
+  document.getElementById("storeView").style.display = "block";
+
+  window.scrollTo(0,0);
+
+}
+
+function showPurchases(){
+
+  hideAllViews();
+
+  document.getElementById("purchasesView").style.display = "block";
+
+  window.scrollTo(0,0);
+
+}
+
+function showCatalog(){
+
+  showStore();
+
+  setTimeout(() => {
+    document.getElementById("catalogo").scrollIntoView();
+  },50);
+
+}
+
+function purchaseHelp(){
+
+  alert(
+    "Nosso atendimento está sendo preparado. 💙\n\n" +
+    "Em breve você poderá solicitar ajuda diretamente por aqui."
+  );
+
+}
+
+/*
+====================================================
+INICIALIZAÇÃO
+====================================================
+*/
+
+searchInput.addEventListener("input", updateCatalog);
+
+renderFilters();
+renderFeatured();
+updateCatalog();
+
 </script>
-
-<!-- TELA DE DETALHES DA SÉRIE -->
-<div id="detailsView" style="display:none; max-width:1100px; margin:0 auto; padding:35px 20px; color:white;">
-
-  <button onclick="document.getElementById('detailsView').style.display='none'; document.getElementById('storeView').style.display='block'; window.scrollTo(0,0);"
-    style="background:#252b48; color:white; border:0; padding:12px 20px; border-radius:10px; cursor:pointer; margin-bottom:30px;">
-    ← Voltar ao catálogo
-  </button>
-
-  <div style="display:flex; flex-wrap:wrap; gap:30px; align-items:center;">
-
-    <div style="width:100%; max-width:300px; height:400px; border-radius:18px; background:linear-gradient(145deg,#242b65,#7543a5); display:flex; align-items:center; justify-content:center; text-align:center;">
-      <span style="font-size:65px;">🎬</span>
-    </div>
-
-    <div style="flex:1; min-width:250px;">
-      <span style="color:#a99aff; letter-spacing:2px; font-size:13px;">REPLAY ORIGINAL</span>
-
-      <h1 id="detailTitle" style="font-size:36px; margin:15px 0;"></h1>
-
-      <p style="color:#b9b9d0;">Novela curta • Romance • Drama</p>
-
-      <h3 style="margin-top:30px;">Sobre essa história</h3>
-
-      <p style="color:#d0d0df; line-height:1.8;">
-        Prepare-se para uma história cheia de emoções, reviravoltas e personagens inesquecíveis.
-        Descubra todos os detalhes dessa trama e encontre sua próxima série favorita!
-      </p>
-
-      <button onclick="alert('A opção de compra será disponibilizada em breve!')"
-        style="background:linear-gradient(90deg,#5965e8,#8b55d9); color:white; border:0; padding:15px 28px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:20px;">
-        QUERO ASSISTIR
-      </button>
-    </div>
-
-  </div>
-</div>
-<!-- FIM DA TELA DE DETALHES -->
 
 </body>
 </html>
