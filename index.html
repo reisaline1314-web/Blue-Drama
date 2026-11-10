@@ -767,106 +767,19 @@ footer strong{color:var(--blue)}
   </div>
 </div>
 
+
 <script>
 
 /*
 ====================================================
-CADASTRO DAS SÉRIES
+CATÁLOGO EXTERNO
 ====================================================
-
-Para adicionar uma novelinha, copie um objeto inteiro
-desta lista e altere as informações.
-
-poster: "poster-1" até "poster-6"
-Para usar uma capa própria, futuramente vamos adicionar
-o endereço da imagem no campo image.
-
-featured: true coloca a série na área de destaques.
-new: true mostra a etiqueta NOVIDADE.
-
-*/
-
-const seriesData = [
-
-  {
-    id:1,
-    title:"Amor Proibido",
-    genre:"Romance",
-    synopsis:"Um sentimento inesperado muda tudo o que ela conhecia. Entre escolhas difíceis e emoções intensas, uma história começa a ganhar vida.",
-    poster:"poster-1",
-    image:"",
-    featured:true,
-    new:true,
-    label:"DESTAQUE"
-  },
-
-  {
-    id:2,
-    title:"A Herdeira",
-    genre:"Drama",
-    synopsis:"Uma descoberta transforma completamente seu destino. Agora ela precisa enfrentar verdades que podem mudar sua vida para sempre.",
-    poster:"poster-2",
-    image:"",
-    featured:true,
-    new:false,
-    label:"DESTAQUE"
-  },
-
-  {
-    id:3,
-    title:"Vingança Perfeita",
-    genre:"Vingança",
-    synopsis:"Depois de uma traição, ela decide escrever seu próprio final. Mas cada passo dessa jornada revela novos segredos.",
-    poster:"poster-3",
-    image:"",
-    featured:true,
-    new:true,
-    label:"NOVIDADE"
-  },
-
-  {
-    id:4,
-    title:"Meu Chefe",
-    genre:"Romance",
-    synopsis:"O que era para ser apenas trabalho se transforma em algo inesperado. Um romance cheio de conflitos e descobertas.",
-    poster:"poster-4",
-    image:"",
-    featured:false,
-    new:false,
-    label:""
-  },
-
-  {
-    id:5,
-    title:"Entre Dois Mundos",
-    genre:"Mistério",
-    synopsis:"Segredos do passado escondem respostas surpreendentes. Uma história em que nada é exatamente o que parece.",
-    poster:"poster-5",
-    image:"",
-    featured:false,
-    new:false,
-    label:""
-  },
-
-  {
-    id:6,
-    title:"Segredos do Passado",
-    genre:"Drama",
-    synopsis:"Uma verdade esquecida ameaça mudar o presente. Algumas histórias nunca ficam realmente para trás.",
-    poster:"poster-6",
-    image:"",
-    featured:false,
-    new:false,
-    label:""
-  }
-
-];
-
-/*
-====================================================
-FUNÇÕES DO CATÁLOGO
+As informações das novelinhas agora vêm do arquivo
+catalogo.json.
 ====================================================
 */
+
+let seriesData = [];
 
 const seriesContainer = document.getElementById("series");
 const featuredContainer = document.getElementById("featuredSeries");
@@ -874,16 +787,6 @@ const filtersContainer = document.getElementById("filters");
 const searchInput = document.getElementById("search");
 
 let selectedGenre = "Todas";
-
-function escapeHTML(text){
-  return String(text ?? "").replace(/[&<>"']/g, char => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
-  }[char]));
-}
 
 function createCard(item){
 
@@ -963,6 +866,10 @@ function renderFilters(){
     "Todas",
     ...new Set(seriesData.map(item => item.genre))
   ];
+
+  if(!genres.includes(selectedGenre)){
+    selectedGenre = "Todas";
+  }
 
   genres.forEach(genre => {
 
@@ -1115,17 +1022,60 @@ function purchaseHelp(){
 
 /*
 ====================================================
+CARREGAMENTO DO CATÁLOGO EXTERNO
+====================================================
+*/
+
+async function loadCatalog(){
+
+  try {
+
+    const response = await fetch("./catalogo.json");
+
+    if(!response.ok){
+      throw new Error("Não foi possível encontrar o arquivo catalogo.json.");
+    }
+
+    const data = await response.json();
+
+    if(!Array.isArray(data)){
+      throw new Error("O catálogo precisa ser uma lista de novelinhas.");
+    }
+
+    seriesData = data;
+
+    renderFilters();
+    renderFeatured();
+    updateCatalog();
+
+  } catch(error) {
+
+    console.error("Erro ao carregar o catálogo:", error);
+
+    featuredContainer.innerHTML =
+      '<p class="empty">Não foi possível carregar os destaques.</p>';
+
+    seriesContainer.innerHTML =
+      '<p class="empty">Não foi possível carregar o catálogo. Tente atualizar a página.</p>';
+
+    document.getElementById("empty").style.display = "none";
+
+  }
+
+}
+
+/*
+====================================================
 INICIALIZAÇÃO
 ====================================================
 */
 
 searchInput.addEventListener("input", updateCatalog);
 
-renderFilters();
-renderFeatured();
-updateCatalog();
+loadCatalog();
 
 </script>
+
 
 </body>
 </html>
